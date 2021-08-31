@@ -1,22 +1,22 @@
+# Credit -> https://www.tutorialspoint.com/longest-common-prefix-in-python
+
 class Solution:
     def longestCommonPrefix(self, strs) -> str:
-        x = [set(i) for i in strs]
-        r = ''.join([x[i-1].intersection(x[i])
-                     for i in range(1, len(x))][-1])[::-1]
-        c = False
-        if len(r) > 0:
-            for i in strs:
-                if i.startswith(r):
-                    c = True
+        if len(strs) == 0:
+            return ""
+        current = strs[0]
+        for i in range(1, len(strs)):
+            temp = ""
+            if len(current) == 0:
+                break
+            for j in range(len(strs[i])):
+                if j < len(current) and current[j] == strs[i][j]:
+                    temp += current[j]
                 else:
-                    c = False
-            if c:
-                return r
-            else:
-                return r[::-1]
-        else:
-            return ''
+                    break
+            current = temp
+        return current
 
 
 s = Solution()
-print(s.longestCommonPrefix(["flower","flow","flight"]))
+print(s.longestCommonPrefix(["flowers", "flight", "flow"]))
